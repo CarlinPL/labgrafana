@@ -8,6 +8,6 @@ Server={{ zabbix_server_ip }}
 ServerActive={{ zabbix_server_ip }}
 
 # Hostname da instância (pega automaticamente)
-Hostname={{ hostvars[inventory_hostname]['tags']['Name'] }}
+Hostname={{ hostvars[inventory_hostname]['tags']['name'] }}
 
 Include=/etc/zabbix/zabbix_agent2.d/*.conf
