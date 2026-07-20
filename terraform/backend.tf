@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "labgrafanagoku"
+    bucket = "labgrafana"
     key = "estado/tfstate"
     region = "sa-east-1"
     encrypt = true
