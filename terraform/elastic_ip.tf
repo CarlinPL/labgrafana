@@ -6,7 +6,7 @@ resource "aws_eip" "ip_pub" {
 }
 
 resource "aws_eip_association" "assoc_ip" {
-    instance_id = aws_intance.zabbix_server.id 
+    instance_id = aws_instance.zabbix_server.id 
     allocation_id = aws_eip.ip_pub.id
 }
 
