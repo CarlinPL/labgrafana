@@ -1,14 +1,12 @@
 ---
-- name: Deploy monitoring stack
-  hosts: hosts
+- name: Deploy stack zabbix server
+  hosts: zabbix_server
   become: true
   roles:
     - monitoring
 
 - name: Instala Zabbix Agent nas instâncias monitoradas
-  hosts: agents
+  hosts: zabbix_agent
   become: true
-  vars:
-    zabbix_server_ip: "177.71.150.163"   # IP do seu servidor Zabbix
   roles:
     - zabbix-agent
