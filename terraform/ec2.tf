@@ -1,4 +1,4 @@
-resource "aws_instance" "monitoring" {
+resource "aws_instance" "zabbix_server" {
     ami = "ami-077aec33f15de0896"
     instance_type = var.instance_type
     key_name = var.key_name 
