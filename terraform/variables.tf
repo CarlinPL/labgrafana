@@ -7,7 +7,7 @@ variable "instance_type" {
 variable "key_name" {
     description = "chave pem"
     type = string
-    default = "teste"
+    default = "pcgoku"
 }
 
 variable "instance_count" {

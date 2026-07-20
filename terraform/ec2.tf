@@ -9,7 +9,7 @@ resource "aws_instance" "monitoring" {
 
     tags = {
         name = "monitoring-stack"
-        role = "monitoring"
+        role = "zabbix_server"
     }
 
     root_block_device {
@@ -26,4 +26,9 @@ resource "aws_instance" "hosts" {
     vpc_security_group_ids = [
         aws_security_group.zabbix_sg.id
     ]
+
+    tags = {
+      name = "monitoring-host-${count.index}"
+      role = "zabbix_agent"
+    }
 }

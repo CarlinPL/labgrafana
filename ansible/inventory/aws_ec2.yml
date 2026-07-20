@@ -1,4 +1,4 @@
-plugin: amazon.aws.aws_ec2
+plugin: aws_ec2
 regions:
   - sa-east-1
 
@@ -6,9 +6,11 @@ regions:
 filters:
   instance-state-name: running
 
-hostnames:
-  - ip-address
+keyed_groups:
+  - key: tags.role
+    prefix: ""
+    separator: ""
 
 compose:
   ansible_user: "'ubuntu'"
-  ansible_ssh_private_key_file: "'~/.ssh/pcgoku.~/.ssh/pcgoku.pem"
+  ansible_ssh_private_key_file: "'~/.ssh/pcgoku.pem'"
