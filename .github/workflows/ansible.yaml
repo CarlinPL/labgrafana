@@ -31,7 +31,7 @@ jobs:
       - name: Config credenciais AWS
         uses: aws-actions/configure-aws-credentials@v6.2.1
         with:
-          role-to-assume: arn:aws:iam::922806890269:role/git-infra-role
+          role-to-assume: arn:aws:iam::922806890269:role/infra-grafana
           aws-region: sa-east-1 
 
       - name: Setup Ansible
