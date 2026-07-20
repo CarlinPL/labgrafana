@@ -8,5 +8,7 @@
 - name: Instala Zabbix Agent nas instâncias monitoradas
   hosts: zabbix_agent
   become: true
+  vars:
+    zabbix_server_ip:
   roles:
     - zabbix-agent

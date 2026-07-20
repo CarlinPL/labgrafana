@@ -1,0 +1,56 @@
+name: Ansible CI/CD
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: 'Executar o ansible playbook ?'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  Ansible: 
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./ansible
+
+    steps:
+      - name: Checkot do codigo
+        uses: actions/checkout@v4
+
+      - name: Config credenciais AWS
+        uses: aws-actions/configure-aws-credentials@v6.2.1
+        with:
+          role-to-assume: arn:aws:iam::922806890269:role/git-infra-role
+          aws-region: sa-east-1 
+
+      - name: Setup Ansible
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install ansible boto3 botocore
+          ansible-galaxy collection install amazon.aws
+
+      - name: Configurar chave SSH no caminho esperado pelo inventario
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/pcgoku.pem
+          chmod 600 ~/.ssh/pcgoku.pem
+
+      - name: Testar chave ssh
+        run: |
+          ansible all \
+            -i inventory/aws_ec2.yml \
+            -m ping
+
+      - name: Rodar Playbook Ansible
+        run: ansible-playbook -i inventory/aws_ec2.yml playbook.yml
